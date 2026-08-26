@@ -1,0 +1,7 @@
+#Thu vien can thiet:
+scikit-learn==1.9.0
+pandas==3.0.5
+xgboost==3.4.0
+imbalanced-learn==0.14.2
+matplotlib
+seaborn
