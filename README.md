@@ -2,7 +2,7 @@
 
 Đây là dự án Nghiên cứu khoa học nhóm nhằm ứng dụng Machine Learning để phát hiện các giao dịch gian lận thẻ tín dụng. Bài toán tập trung giải quyết thách thức lớn nhất trong lĩnh vực tài chính: **Dữ liệu mất cân bằng cực độ (Highly Imbalanced Data)**.
 
-## ⚙️ Công nghệ & Kỹ thuật cốt lõi
+## Công nghệ & Kỹ thuật cốt lõi
 - **Ngôn ngữ:** Python (Jupyter Notebook)
 - **Thư viện chính:** `scikit-learn`, `xgboost`, `imbalanced-learn`, `pandas`, `seaborn`
 - **Pipeline triển khai:**
