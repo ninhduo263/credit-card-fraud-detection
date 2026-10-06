@@ -1,23 +1,38 @@
-# 🛡️ Credit Card Fraud Detection
+# 🛡️ Phát Hiện Gian Lận Thẻ Tín Dụng Bằng XGBoost Trên Dữ Liệu Mất Cân Bằng
 
-Đây là dự án Nghiên cứu khoa học nhóm nhằm ứng dụng Machine Learning để phát hiện các giao dịch gian lận thẻ tín dụng. Bài toán tập trung giải quyết thách thức lớn nhất trong lĩnh vực tài chính: **Dữ liệu mất cân bằng cực độ (Highly Imbalanced Data)**.
+Đây là dự án Nghiên cứu khoa học tập trung giải quyết bài toán phân loại dữ liệu mất cân bằng (Class Imbalance) trong lĩnh vực tài chính. Mục tiêu của dự án là thiết lập bộ tham số tối ưu cho mô hình **XGBoost**, qua đó đề xuất giải pháp công nghệ giúp tối ưu hóa hệ thống quản trị rủi ro, giảm thiểu tổn thất do gian lận và bảo vệ trải nghiệm liền mạch của khách hàng.
 
-## ⚙️ Công nghệ & Kỹ thuật cốt lõi
-- **Ngôn ngữ:** Python (Jupyter Notebook)
-- **Thư viện chính:** `scikit-learn`, `xgboost`, `imbalanced-learn`, `pandas`, `seaborn`
-- **Pipeline triển khai:**
-  - **Tiền xử lý:** Chuẩn hóa các đặc trưng với `RobustScaler`.
-  - **Xử lý mất cân bằng:** Áp dụng kỹ thuật sinh dữ liệu tổng hợp **SMOTE** (Synthetic Minority Over-sampling Technique) để nội suy và cân bằng nhãn.
-  - **Tối ưu hóa GPU:** Tích hợp huấn luyện phần cứng (CUDA) cho thuật toán `hist` của XGBoost.
-  - **Hyperparameter Tuning:** Sử dụng `GridSearchCV` để dò tìm không gian tham số tối ưu dựa trên tiêu chí `average_precision` (phù hợp cho bài toán lệch pha).
+## 🎯 Mục Tiêu Nghiên Cứu
+1. **Tối ưu hóa mô hình:** Thiết lập và tinh chỉnh bộ siêu tham số tối ưu cho XGBoost trên tập dữ liệu mất cân bằng cực độ.
+2. **So sánh đánh giá:** Chứng minh tính ưu việt của Gradient Boosting so với các mô hình cơ sở (Baseline Models) như Logistic Regression và Random Forest.
+3. **Kiểm soát ngưỡng (Trade-off):** Cực đại hóa chỉ số **Recall** để bắt đúng tối đa giao dịch gian lận, đồng thời kiểm soát nghiêm ngặt tỷ lệ **False Positive** (tránh khóa nhầm thẻ của khách hàng).
 
-## 📊 Đánh giá Mô hình
-Dự án đã tiến hành thử nghiệm và đối chiếu chéo hiệu suất của 3 mô hình học máy:
-1. **Logistic Regression:** Đóng vai trò là mô hình cơ sở (Baseline).
-2. **Random Forest:** Cải thiện đáng kể khả năng phân loại.
-3. **Tuned XGBoost (Mô hình chọn lọc):** Qua 36 vòng huấn luyện tinh chỉnh (`learning_rate`, `max_depth`, `n_estimators`), mô hình XGBoost đạt hiệu suất tối ưu với **F1-Score lớp gian lận: 0.84** và **Accuracy: 100%**.
+## ⚙️ Phương Pháp & Kỹ Thuật Triển Khai
+- **Ngôn ngữ & Thư viện:** Python (Jupyter Notebook), `xgboost`, `scikit-learn`, `imbalanced-learn`, `shap`, `pandas`, `seaborn`.
+- **Tiền xử lý dữ liệu:** Chuẩn hóa các biến (Amount, Time) bằng `RobustScaler`/`StandardScaler`.
+- **Xử lý mất cân bằng lớp:** Kết hợp kỹ thuật lấy mẫu `SMOTE` cho các mô hình truyền thống và tinh chỉnh trọng số `scale_pos_weight` cho XGBoost.
+- **Tối ưu hóa siêu tham số:** Ứng dụng `GridSearchCV` và `RandomizedSearchCV` để dò tìm không gian tham số tối ưu.
+- **Minh bạch mô hình (XAI):** Sử dụng `SHAP` values và Feature Importance để giải thích quyết định của mô hình.
 
-## 📂 Cấu trúc Repository
-- `PhanTich_GianLan.ipynb`: Mã nguồn E2E từ bước khám phá dữ liệu (EDA), SMOTE đến huấn luyện và đánh giá.
-- `requirements.txt`: Danh sách môi trường và thư viện phụ thuộc.
-*(Lưu ý: Tập dữ liệu `creditcard.csv` được bỏ qua bằng `.gitignore` để đảm bảo chính sách bảo mật dữ liệu thô).*
+## 📊 Đánh Giá & Kết Quả
+Dự án đánh giá toàn diện hiệu năng của các mô hình thông qua:
+- Ma trận nhầm lẫn (Confusion Matrix).
+- Diện tích dưới đường cong: ROC-AUC, PR-AUC.
+- Đánh giá tính ổn định qua Bootstrap và Kiểm định chéo phân tầng lặp lại (Repeated Stratified 5x2 CV).
+- Phân tích hiện tượng học vẹt (Overfitting) qua Learning Curves.
+- Điều chỉnh ngưỡng quyết định (Threshold Moving) theo mục tiêu kinh doanh (Ngân sách False Positive).
+
+## 📂 Cấu Trúc Repository
+- `PhanTich_GianLan.ipynb`: Mã nguồn E2E (End-to-End) hoàn chỉnh nhất. Từ bước phân tích khám phá (EDA) đến huấn luyện, đánh giá, kiểm định chéo và giải thích mô hình bằng SHAP. Phù hợp làm báo cáo khoa học trình Hội đồng.
+- `requirements.txt`: Danh sách môi trường và các thư viện phụ thuộc.
+- `xgb_fraud_model.joblib` / `.json`: Mô hình XGBoost tối ưu cuối cùng đã được đóng gói.
+- Các file `bang*.csv` và `fig_*.png`: Các bảng biểu và đồ thị xuất ra từ quá trình huấn luyện phục vụ viết báo cáo khoa học.
+
+## 🚀 Hướng Dẫn Sử Dụng
+1. Clone repository này về máy.
+2. Tải tập dữ liệu thô `creditcard.csv` từ [Kaggle](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) và đặt vào cùng thư mục với notebook. (File này đã được thiết lập bỏ qua trong `.gitignore`).
+3. Cài đặt các thư viện cần thiết:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Mở và chạy toàn bộ các cell trong file `PhanTich_GianLan.ipynb`.

@@ -1,1 +1,29 @@
-creditcard.csv
+# Dataset and output files
+*.csv
+*.png
+
+# Machine Learning models and preprocessing pipelines
+*.joblib
+*.json
+*.pkl
+*.h5
+*.model
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
