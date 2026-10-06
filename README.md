@@ -25,7 +25,7 @@ Dự án đánh giá toàn diện hiệu năng của các mô hình thông qua:
 ## 📂 Cấu Trúc Repository
 - `PhanTich_GianLan.ipynb`: Mã nguồn E2E (End-to-End) hoàn chỉnh nhất. Từ bước phân tích khám phá (EDA) đến huấn luyện, đánh giá, kiểm định chéo và giải thích mô hình bằng SHAP. Phù hợp làm báo cáo khoa học trình Hội đồng.
 - `requirements.txt`: Danh sách môi trường và các thư viện phụ thuộc.
-- `xgb_fraud_model.joblib` / `.json`: Mô hình XGBoost tối ưu cuối cùng đã được đóng gói.
+- `xgb_fraud_final.json` và `fraud_preprocessing.joblib`: Mô hình XGBoost tối ưu cuối cùng và pipeline tiền xử lý (scaler, ngưỡng, v.v.) đã được đóng gói.
 - Các file `bang*.csv` và `fig_*.png`: Các bảng biểu và đồ thị xuất ra từ quá trình huấn luyện phục vụ viết báo cáo khoa học.
 
 ## 🚀 Hướng Dẫn Sử Dụng
